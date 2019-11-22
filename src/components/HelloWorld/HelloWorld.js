@@ -1,15 +1,18 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-function HelloWorld({message}) {
-    return <div>Hello {message}</div>
+/** A super lame component that says Hello with a custom message. */
+function HelloWorld({ message }) {
+  return <div>Hello {message}</div>;
 }
 
-HelloWorld.protoTypes = {
-    message: PropTypes.string
+HelloWorld.propTypes = {
+  /** Message to display */
+  message: PropTypes.string
 };
 
 HelloWorld.defaultProps = {
-    message:'World'
-}
+  message: "World"
+};
+
 export default HelloWorld;
