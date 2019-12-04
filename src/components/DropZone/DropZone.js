@@ -1,11 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {DropzoneArea} from 'material-ui-dropzone'; 
 
-function DropZone({htmlId, acceptedFiles, filesLimit, maxFileSize, dropzoneText, dropzoneClass, showFileNames,showFileNamesInPreview, showAlerts, onChange, onDrop, onDropRejected, onDelete}){
+function DropZone({htmlId, initialFiles, acceptedFiles, filesLimit, maxFileSize, dropzoneText, dropzoneClass, showFileNames,showFileNamesInPreview, showAlerts, onChange, onDrop, onDropRejected, onDelete,r, children, ...props}){
     return(
         <div>
             <DropzoneArea 
                 id={htmlId}
+                initialFiles={initialFiles}
                 acceptedFiles={acceptedFiles}
                 filesLimit={filesLimit}
                 maxFileSize={maxFileSize}
@@ -18,7 +20,9 @@ function DropZone({htmlId, acceptedFiles, filesLimit, maxFileSize, dropzoneText,
                 onDrop={onDrop}
                 onDropRejected={onDropRejected}
                 onDelete={onDelete}
+                {...props}
             />
+            {children}
         </div>
     )
 };
@@ -26,6 +30,9 @@ function DropZone({htmlId, acceptedFiles, filesLimit, maxFileSize, dropzoneText,
 DropZone.propTypes = {
     /** Unique HTML ID. Used for tying label to HTML input. Handy hook for automated testing. */
     htmlId: PropTypes.string.isRequired,
+
+    /** A list of file mime types to accept. Does support wildcards. */
+    initialFiles: PropTypes.array,
 
     /** A list of file mime types to accept. Does support wildcards. */
     acceptedFiles: PropTypes.array,
@@ -55,20 +62,21 @@ DropZone.propTypes = {
     onChange: PropTypes.func.isRequired,
 
     /** Function to call onDrop */
-    onDrop: PropTypes.func.isRequired,
+    onDrop: PropTypes.func,
 
     /** Function to call onDropRejected */
-    onDropRejected: PropTypes.func.isRequired,
+    onDropRejected: PropTypes.func,
 
     /** Function to call onDelete */
-    onDelete: PropTypes.func.isRequired,
+    onDelete: PropTypes.func,
 }
 
 DropZone.defaultProps = {
-    acceptedFiles: ['pdf/*', 'jpg/*'],
+    initialFiles:[],
+    acceptedFiles: ['pdf/*', 'image/*'],
     filesLimit: 3,
     maxFileSize: 512000,
-    dropzoneText: 'Drag and drop an image file here or click',
+    dropzoneText: 'Drag and drop an image file here or click! (Max file size is 500MB)',
     showFileNames: false,
     showFileNamesInPreview: false,
     showAlerts: true

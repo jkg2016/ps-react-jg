@@ -5,7 +5,7 @@ import TextInput from 'ps-react/TextInput';
 export default class ExampleError extends React.Component {
     render() {
         return (<TextInput
-                    htmlId="example-optional"
+                    htmlId="example-error"
                     label="First Name"
                     name="First Name"
                     onChange= {() => {}}

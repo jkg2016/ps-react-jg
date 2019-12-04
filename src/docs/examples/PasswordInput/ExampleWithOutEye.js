@@ -19,7 +19,7 @@ class ExampleWithOutEye extends React.Component {
         return (
             <div>
                 <PasswordInput 
-                    htmlId="password-input-example-all-features"
+                    htmlId="password-input-example-with-out-eye"
                     name="password"
                     onChange={ event => this.setState ({ password: event.target.value})}
                     value={this.state.password}
