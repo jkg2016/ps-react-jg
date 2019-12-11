@@ -12,7 +12,6 @@
     "babel-jest": "^24.9.0",
     "babel-loader": "8.0.6",
     "babel-plugin-named-asset-import": "^0.3.4",
-    "babel-preset-react-app": "^9.0.2",
     "camelcase": "^5.2.0",
     "case-sensitive-paths-webpack-plugin": "2.2.0",
     "css-loader": "2.1.1",
@@ -72,8 +71,12 @@
     "gen:docs-watch": "npm run gen:docs -- --watch",
     "build:docs": "node scripts/build.js",
     "test": "node scripts/test.js",
+    "build:css": "cpx \"./src/components/**/*.css\" ./lib",
+    "prebuild:lib":"rimraf lib",
+    "build:lib": "npm run build:commonjs && npm run build:css",
     "predeploy:docs": "npm run build:docs",
-    "deploy:docs": "gh-pages -d build"
+    "deploy:docs": "gh-pages -d build",
+    "build:commonjs": "cross-env NODE_ENV=production webpackEnv=production babel ./src/components --out-dir ./lib --ignore spec.js"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -140,17 +143,28 @@
   },
   "babel": {
     "presets": [
+      [
+        "env",
+        {
+          "modules": "commonjs"
+        }
+      ],
       "react-app"
     ]
   },
   "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-react-app": "^3.0.0",
     "chokidar": "^3.3.0",
+    "cpx": "^1.5.0",
+    "cross-env": "^4.0.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
     "gh-pages": "^0.12.0",
     "npm-run-all": "^4.0.2",
     "react-addons-test-utils": "^15.6.2",
     "react-docgen": "^2.14.0",
-    "react-test-renderer": "^16.12.0"
+    "react-test-renderer": "^16.12.0",
+    "rimraf": "^2.6.1"
   }
 }
